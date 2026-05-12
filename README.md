@@ -1,12 +1,11 @@
 <div align="center">
-  <img src="icons/icon128.png" width="96" alt="Lightning Scroller"/>
+  <img src="icons/logo_full.png" width="96" alt="Lightning Scroller"/>
   <h1>⚡ Lightning Scroller</h1>
   <p><strong>Blast through Facebook's infinite feed at maximum speed.</strong><br/>
   Posts are captured to RAM then flushed to disk — automatically, reliably.</p>
 
   ![Chrome Extension](https://img.shields.io/badge/Chrome-Extension-4a9eff?style=flat-square&logo=googlechrome&logoColor=white)
   ![Manifest V3](https://img.shields.io/badge/Manifest-V3-00cc77?style=flat-square)
-  ![License ZCHG](https://img.shields.io/badge/License-MIT-6666aa?style=flat-square)
 </div>
 
 ---
