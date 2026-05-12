@@ -6,7 +6,7 @@
 
   ![Chrome Extension](https://img.shields.io/badge/Chrome-Extension-4a9eff?style=flat-square&logo=googlechrome&logoColor=white)
   ![Manifest V3](https://img.shields.io/badge/Manifest-V3-00cc77?style=flat-square)
-  ![License MIT](https://img.shields.io/badge/License-MIT-6666aa?style=flat-square)
+  ![License ZCHG](https://img.shields.io/badge/License-MIT-6666aa?style=flat-square)
 </div>
 
 ---
