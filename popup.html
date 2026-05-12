@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>FB Lightning Scroller</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #0a0a0f;
+    --surface:  #12121a;
+    --border:   #1e1e2e;
+    --green:    #00ff99;
+    --green2:   #00cc77;
+    --yellow:   #ffdd57;
+    --red:      #ff4466;
+    --text:     #e0e0f0;
+    --muted:    #6666aa;
+  }
+
+  body {
+    width: 280px;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: linear-gradient(135deg, #0f0f1a 0%, #1a0a2e 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 16px 12px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 18px,
+      rgba(0,255,153,0.03) 18px,
+      rgba(0,255,153,0.03) 19px
+    );
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .bolt {
+    font-size: 22px;
+    filter: drop-shadow(0 0 8px var(--green));
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%,100% { filter: drop-shadow(0 0 6px var(--green)); }
+    50%      { filter: drop-shadow(0 0 14px var(--green)); }
+  }
+  .title {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--green);
+    text-transform: uppercase;
+  }
+  .subtitle {
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    margin-top: 2px;
+  }
+
+  /* ── Stats ── */
+  .stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .stat {
+    background: var(--surface);
+    padding: 10px 12px;
+    text-align: center;
+  }
+  .stat-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--green);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    transition: color .3s;
+  }
+  .stat-label {
+    font-size: 8px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 3px;
+  }
+
+  /* ── Progress ── */
+  .progress-wrap {
+    padding: 10px 14px 8px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    color: var(--muted);
+    font-size: 9px;
+    letter-spacing: 0.08em;
+  }
+  .progress-bar-bg {
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--green2), var(--green));
+    border-radius: 2px;
+    transition: width .4s ease;
+    box-shadow: 0 0 6px var(--green);
+  }
+
+  /* ── Status ── */
+  .status-box {
+    background: #0d0d18;
+    border-bottom: 1px solid var(--border);
+    padding: 8px 14px;
+    min-height: 34px;
+    display: flex;
+    align-items: center;
+  }
+  .status-text {
+    font-size: 10px;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+  .status-text.active { color: var(--green); }
+  .status-text.done   { color: var(--yellow); }
+  .status-text.error  { color: var(--red); }
+
+  /* ── Controls ── */
+  .controls {
+    padding: 12px 14px;
+    display: flex;
+    gap: 8px;
+  }
+  .btn {
+    flex: 1;
+    border: none;
+    border-radius: 6px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    padding: 9px 4px;
+    text-transform: uppercase;
+    transition: all .15s;
+  }
+  .btn:active { transform: scale(0.96); }
+
+  .btn-start {
+    background: var(--green);
+    color: #000;
+  }
+  .btn-start:hover { background: var(--green2); }
+  .btn-start:disabled { background: #1a3a2a; color: #2a5a3a; cursor: default; }
+
+  .btn-stop {
+    background: transparent;
+    color: var(--red);
+    border: 1px solid var(--red);
+  }
+  .btn-stop:hover { background: #ff446611; }
+  .btn-stop:disabled { border-color: #3a1a22; color: #3a1a22; cursor: default; }
+
+  .btn-clear {
+    flex: 0 0 auto;
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    font-size: 9px;
+    padding: 9px 8px;
+  }
+  .btn-clear:hover { color: var(--text); border-color: var(--muted); }
+
+  /* ── Footer ── */
+  .footer {
+    padding: 6px 14px 10px;
+    font-size: 8.5px;
+    color: #3a3a5a;
+    text-align: center;
+    letter-spacing: 0.06em;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── Spinner ── */
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .spinner {
+    display: inline-block;
+    width: 8px; height: 8px;
+    border: 1.5px solid var(--green);
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin .6s linear infinite;
+    margin-right: 5px;
+    vertical-align: middle;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">
+    <span class="bolt">⚡</span>
+    <div>
+      <div class="title">Lightning Scroller</div>
+      <div class="subtitle">Facebook Feed Harvester</div>
+    </div>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stat">
+    <div class="stat-value" id="statPosts">0</div>
+    <div class="stat-label">Posts</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value" id="statFlush">0</div>
+    <div class="stat-label">Disk Batches</div>
+  </div>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-label">
+    <span>RAM Buffer</span>
+    <span id="ramLabel">0 MB</span>
+  </div>
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill" id="ramBar"></div>
+  </div>
+</div>
+
+<div class="status-box">
+  <div class="status-text" id="statusText">Ready — open Facebook and press Start.</div>
+</div>
+
+<div class="controls">
+  <button class="btn btn-start" id="btnStart">▶ Start</button>
+  <button class="btn btn-stop"  id="btnStop"  disabled>■ Stop</button>
+  <button class="btn btn-clear" id="btnClear" title="Clear all buffered data">🗑</button>
+</div>
+
+<div class="footer">RAM → IndexedDB · Manifest V3 · facebook.com only</div>
+
+<script src="popup.js"></script>
+</body>
+</html>
