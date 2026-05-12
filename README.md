@@ -113,7 +113,7 @@ Lightning-Scroller/
 
 ## 👥 Contributing
 
-PRs welcome. Key areas for improvement:
+Communication-based PRs welcome. Key areas for improvement:
 - Export captured posts to JSON/CSV
 - Support for Instagram and Twitter/X feeds  
 - Chrome Web Store packaging
@@ -121,5 +121,5 @@ PRs welcome. Key areas for improvement:
 ---
 
 <div align="center">
-  <sub>By <a href="https://github.com/ZCHGorg">ZCHG</a> · MIT License · Manifest V3 · Chrome only</sub>
+  <sub>By <a href="https://github.com/ZCHGorg">ZCHG</a> · zCHG License · Manifest V3 · Chrome only</sub>
 </div>
